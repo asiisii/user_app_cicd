@@ -1,16 +1,25 @@
 services:
   flaskapp:
-      container_name: flaskapp
-      image: flaskapp:1.0.0
-      build:
-        context: ./api
-        dockerfile: flask.dockerfile
-      ports:
-        - 4000:4000
-      environment:
-        - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
-      depends_on:
-        - db
+    container_name: flaskapp
+    image: flaskapp:1.0.0
+    build:
+      context: ./api
+      dockerfile: flask.dockerfile
+    ports:
+      - 4000:4000
+    environment:
+      - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
+    depends_on:
+      - db
+
+  nextjsapp:
+    container_name: nextjsapp
+    build:
+      context: ./ui
+      dockerfile: nextjs.dockerfile
+    ports:
+      - 3000:3000
+
   db:
     container_name: db
     image: postgres:13
